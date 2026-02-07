@@ -67,3 +67,50 @@ async def close_db():
     if POOL:
         await POOL.close()
         logging.info("Database connection pool closed.")
+
+async def delete_user_data(user_id: int):
+    """Delete all stored data for a user (GDPR compliance)."""
+    async with POOL.acquire() as conn:
+        await conn.execute("DELETE FROM user_profiles WHERE user_id=$1", user_id)
+        await conn.execute("DELETE FROM interaction_log WHERE user_id=$1", user_id)
+
+async def export_user_data(user_id: int) -> dict:
+    """Export all stored data for a user (GDPR compliance)."""
+    async with POOL.acquire() as conn:
+        profile_row = await conn.fetchrow("SELECT data FROM user_profiles WHERE user_id=$1", user_id)
+        interaction_rows = await conn.fetch("SELECT ts, text, is_group, links FROM interaction_log WHERE user_id=$1", user_id)
+        
+        return {
+            "profile": json.loads(profile_row["data"]) if profile_row else {},
+            "interactions": [
+                {
+                    "timestamp": r["ts"].isoformat() if r["ts"] else None,
+                    "text": r["text"],
+                    "is_group": r["is_group"],
+                    "links": r["links"]
+                } for r in interaction_rows
+            ]
+        }
+
+async def create_tables():
+    """Create necessary database tables if they do not exist."""
+    async with POOL.acquire() as conn:
+        await conn.execute(\"\"\"
+            CREATE TABLE IF NOT EXISTS user_profiles (
+                user_id BIGINT PRIMARY KEY,
+                data JSONB DEFAULT '{}'
+            );
+            CREATE TABLE IF NOT EXISTS chat_profiles (
+                chat_id BIGINT PRIMARY KEY,
+                data JSONB DEFAULT '{}'
+            );
+            CREATE TABLE IF NOT EXISTS interaction_log (
+                id SERIAL PRIMARY KEY,
+                chat_id BIGINT,
+                user_id BIGINT,
+                ts TIMESTAMP WITH TIME ZONE,
+                text TEXT,
+                is_group BOOLEAN,
+                links TEXT[]
+            );
+        \"\"\")
