@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Telegram Ultimate Platform</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#17212b;color:#e8f4fd;font-family:'Segoe UI',sans-serif;height:100vh;display:flex;flex-direction:column}
+.header{background:#242f3d;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #2b5278}
+.brand{display:flex;align-items:center;gap:10px}
+.tg-icon{width:34px;height:34px;background:linear-gradient(135deg,#2AABEE,#229ED9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.brand-name{font-weight:700;font-size:1rem;color:#fff}
+.brand-sub{font-size:.7rem;color:#7d9ab5}
+.stats-row{display:flex;gap:12px;font-size:.72rem}
+.sstat{background:#2b3a4b;border-radius:12px;padding:3px 10px;color:#7d9ab5}
+.sstat span{color:#2AABEE;font-weight:700}
+.layout{display:flex;flex:1;overflow:hidden}
+.accounts{width:200px;background:#1e2d3d;border-right:1px solid #2b3a4b;overflow-y:auto}
+.acc-header{padding:10px 14px;font-size:.65rem;color:#7d9ab5;text-transform:uppercase;letter-spacing:1px;background:#17212b;border-bottom:1px solid #2b3a4b}
+.acc-item{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;border-bottom:1px solid #1a2633;transition:.2s}
+.acc-item:hover,.acc-item.on{background:#2b3a4b}
+.acc-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
+.acc-info{flex:1;min-width:0}
+.acc-name{font-size:.82rem;font-weight:600;color:#e8f4fd}
+.acc-status{font-size:.68rem;color:#7d9ab5}
+.acc-badge{background:#2AABEE;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff}
+.chat-panel{flex:1;display:flex;flex-direction:column}
+.chat-header{background:#242f3d;padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #2b3a4b}
+.ch-av{width:34px;height:34px;background:linear-gradient(135deg,#f59e0b,#ef4444);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.ch-name{font-weight:700;font-size:.9rem}
+.ch-sub{font-size:.7rem;color:#7d9ab5}
+.ch-actions{margin-left:auto;display:flex;gap:8px}
+.ch-btn{background:#2b3a4b;border:none;border-radius:6px;padding:5px 10px;color:#7d9ab5;cursor:pointer;font-size:.72rem}
+.ch-btn.active{background:#2b5278;color:#2AABEE}
+.messages{flex:1;padding:14px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;background:#17212b}
+.msg{display:flex;gap:8px}
+.msg.out{flex-direction:row-reverse}
+.mav{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.78rem;flex-shrink:0}
+.mb{background:#242f3d;border-radius:10px;padding:8px 12px;max-width:70%;font-size:.82rem;line-height:1.5}
+.msg.out .mb{background:#2b5278}
+.mt{font-size:.62rem;color:#7d9ab5;margin-top:3px;text-align:right}
+.input-bar{background:#242f3d;padding:10px 14px;display:flex;align-items:center;gap:8px;border-top:1px solid #2b3a4b}
+.tginput{flex:1;background:#17212b;border:1px solid #2b3a4b;border-radius:20px;padding:8px 14px;color:#e8f4fd;font-size:.85rem;outline:none}
+.tginput:focus{border-color:#2AABEE}
+.tsend{background:#2AABEE;border:none;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;color:#fff}
+.bots-panel{width:190px;background:#1e2d3d;border-left:1px solid #2b3a4b;padding:12px;overflow-y:auto}
+.bp-head{font-size:.65rem;color:#7d9ab5;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.bot-card{background:#242f3d;border-radius:6px;padding:8px 10px;margin-bottom:6px;cursor:pointer}
+.bot-name{font-size:.78rem;font-weight:600;color:#e8f4fd;margin-bottom:2px}
+.bot-desc{font-size:.65rem;color:#7d9ab5}
+.bot-status{display:inline-block;width:6px;height:6px;border-radius:50%;background:#22c55e;margin-right:4px}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="brand">
+    <div class="tg-icon">📨</div>
+    <div><div class="brand-name">Telegram Ultimate Platform</div><div class="brand-sub">Self-adaptive assistant • Multi-account</div></div>
+  </div>
+  <div class="stats-row">
+    <div class="sstat">Bots: <span>4</span></div>
+    <div class="sstat">Accounts: <span>3</span></div>
+    <div class="sstat">Tasks: <span>12</span> queued</div>
+  </div>
+</div>
+<div class="layout">
+  <div class="accounts">
+    <div class="acc-header">Accounts</div>
+    <div class="acc-item on">
+      <div class="acc-avatar" style="background:linear-gradient(135deg,#7c3aed,#2563eb)">TF</div>
+      <div class="acc-info"><div class="acc-name">Tylor Fenwick</div><div class="acc-status">● Online</div></div>
+      <div class="acc-badge">3</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-avatar" style="background:linear-gradient(135deg,#059669,#0284c7)">B1</div>
+      <div class="acc-info"><div class="acc-name">Bot Account 1</div><div class="acc-status">Auto-reply active</div></div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-avatar" style="background:linear-gradient(135deg,#d97706,#dc2626)">B2</div>
+      <div class="acc-info"><div class="acc-name">Bot Account 2</div><div class="acc-status">Tracking tasks</div></div>
+    </div>
+    <div class="acc-header" style="margin-top:4px">Chats</div>
+    <div class="acc-item on">
+      <div class="acc-avatar" style="background:#2AABEE22;border:1px solid #2AABEE44">📦</div>
+      <div class="acc-info"><div class="acc-name">NIU Support</div><div class="acc-status">Partnership inquiry</div></div>
+      <div class="acc-badge">1</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-avatar" style="background:#22c55e22;border:1px solid #22c55e44">🌐</div>
+      <div class="acc-info"><div class="acc-name">Outreach Group</div><div class="acc-status">45 members</div></div>
+    </div>
+  </div>
+  <div class="chat-panel">
+    <div class="chat-header">
+      <div class="ch-av">📦</div>
+      <div><div class="ch-name">NIU Support</div><div class="ch-sub">Partnership inquiry • Intent Engine active</div></div>
+      <div class="ch-actions">
+        <button class="ch-btn active">Auto-Reply ON</button>
+        <button class="ch-btn">Schedule</button>
+        <button class="ch-btn">Translate</button>
+      </div>
+    </div>
+    <div class="messages" id="msgs">
+      <div class="msg">
+        <div class="mav" style="background:#2AABEE22">📦</div>
+        <div class="mb">Hi Tylor! Thank you for your interest in NIU partnership. Could you share your platform details?
+          <div class="mt">NIU • 10:42 AM</div>
+        </div>
+      </div>
+      <div class="msg out">
+        <div class="mav" style="background:#7c3aed22">TF</div>
+        <div class="mb">🤖 [Auto-reply sent] Hi NIU Team! I’m Tylor Fenwick — AI/automation builder in SF. Portfolio: hakunatgl.github.io. Happy to discuss evaluation opportunities.
+          <div class="mt">You • 10:43 AM • ✓✓</div>
+        </div>
+      </div>
+      <div class="msg">
+        <div class="mav" style="background:#2AABEE22">📦</div>
+        <div class="mb">Excellent! We’d love to move forward. What products are you interested in testing?
+          <div class="mt">NIU • 10:45 AM</div>
+        </div>
+      </div>
+    </div>
+    <div class="input-bar">
+      <input class="tginput" placeholder="Message..." id="ti">
+      <button class="tsend" onclick="tsend()">↑</button>
+    </div>
+  </div>
+  <div class="bots-panel">
+    <div class="bp-head">Active Bots</div>
+    <div class="bot-card"><div class="bot-name"><span class="bot-status"></span>Intent Engine</div><div class="bot-desc">Classifies messages, triggers workflows</div></div>
+    <div class="bot-card"><div class="bot-name"><span class="bot-status"></span>Auto-Responder</div><div class="bot-desc">Smart reply to inbound messages</div></div>
+    <div class="bot-card"><div class="bot-name"><span class="bot-status"></span>Task Bot</div><div class="bot-desc">Creates tasks from chat commands</div></div>
+    <div class="bot-card"><div class="bot-name"><span class="bot-status"></span>Scheduler</div><div class="bot-desc">Queues and sends timed messages</div></div>
+    <div class="bp-head" style="margin-top:10px">Automation Rules</div>
+    <div class="bot-card"><div class="bot-name">Rule: Outreach</div><div class="bot-desc">Send intro when keyword match</div></div>
+    <div class="bot-card"><div class="bot-name">Rule: Follow-up</div><div class="bot-desc">Auto follow-up after 48h silence</div></div>
+  </div>
+</div>
+<script>
+function tsend(){
+  const i=document.getElementById('ti'),v=i.value.trim();if(!v)return;
+  const m=document.getElementById('msgs');
+  const d=document.createElement('div');d.className='msg out';
+  d.innerHTML=`<div class="mav" style="background:#7c3aed22">TF</div><div class="mb">${v}<div class="mt">You • Just now • ✓</div></div>`;
+  m.appendChild(d);m.scrollTop=m.scrollHeight;i.value='';
+}
+document.getElementById('ti').addEventListener('keydown',e=>{if(e.key==='Enter')tsend();});
+</script>
+</body>
+</html>
